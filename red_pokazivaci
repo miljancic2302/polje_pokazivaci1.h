@@ -1,0 +1,62 @@
+#include <iostream>
+
+struct cetvorka{
+       int a,b,c,d;
+       };
+struct banka{
+       char ime[20];
+       char prezime[30];
+       int g;
+       float stanje_tekuci;
+       float stanje_devizni;
+       cetvorka prioriteti;
+       };
+ 
+struct element {
+       banka value;
+       element*next;
+};
+ 
+struct que {
+       element *front, *rear;
+};
+ 
+typedef struct que red;
+
+
+element *glava=new element;
+ 
+bool IsEmptyQ(red *Q) {
+    if (Q->rear==Q->front) return true;
+    else return false;
+}
+ 
+banka FrontQ(red *Q) {
+if (!IsEmptyQ(Q)) {
+    element *pom=Q->front;
+    pom=pom->next;
+    return pom->value;
+}
+}
+ 
+void DeQueueQ(red *Q) {
+    if (!IsEmptyQ(Q)) {
+        element *brisi=Q->front;
+        Q->front=brisi->next;
+        delete brisi;
+    }
+}
+ 
+void EnQueueQ (banka covjek, red *Q) {
+     element *zadnji=Q->rear;
+     element *novi=new element;
+     novi->value=covjek;
+     novi->next=NULL;
+     zadnji->next=novi;
+     Q->rear=novi;
+}
+ 
+void InitQ (red *Q) {
+    Q->front=glava;
+    Q->rear=glava;
+}
